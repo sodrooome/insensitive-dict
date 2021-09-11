@@ -30,18 +30,20 @@ class InsensitiveDict(MutableMapping):
                 raise Exception("The mapping of dictionary not to be key-value")
             elif not isinstance(data, MutableMapping):
                 data = {key: value for key, value in data.iteritems()}
-        self._dict[key] = value
+            self._dict[key] = value
+        self.update(self._dict, **kwargs)
 
     def __setitem__(self, key, value):
         # use lowercase for store the default key
         if self._dict[key] not in key.lower():
-            self._dict[key.lower()] == (key, value)
+            var = self._dict[key.lower()] == (key, value)
+            return var
 
     def __getitem__(self, key):
         # get the value attribute by the default key is lowercase
         if not self._dict[key]:
             raise KeyError("Key is not in the list / dict")
-        return self._dict[key.lower()][0]
+        return self._dict[key.lower()][:]
 
     def __delitem__(self, key):
         # delete the value attribute by the default key is lowercase
